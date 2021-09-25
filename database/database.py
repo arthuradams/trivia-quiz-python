@@ -21,46 +21,21 @@ def execute_query(connection, query):
         print(f"The error '{e}' occurred")
 
 
-connection = create_connection("sm_app.sqlite")
+connection = create_connection("trivia.sqlite")
 
-create_users_table = """
+create_questions_table = """
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  age INTEGER,
-  gender TEXT,
-  nationality TEXT
-);
-"""
-execute_query(connection, create_users_table)  
-create_posts_table = """
-CREATE TABLE IF NOT EXISTS posts(
-  id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  title TEXT NOT NULL, 
-  description TEXT NOT NULL, 
-  user_id INTEGER NOT NULL, 
-  FOREIGN KEY (user_id) REFERENCES users (id)
-);
-"""
-execute_query(connection, create_posts_table)
-create_comments_table = """
-CREATE TABLE IF NOT EXISTS comments (
-  id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  text TEXT NOT NULL, 
-  user_id INTEGER NOT NULL, 
-  post_id INTEGER NOT NULL, 
-  FOREIGN KEY (user_id) REFERENCES users (id) FOREIGN KEY (post_id) REFERENCES posts (id)
-);
-"""
+  question TEXT NOT NULL,
+  category TEXT NOT NULL,
+  correct_answer TEXT NOT NULL,
+  wrong_answer_1 TEXT NOT NULL,
+  wrong_answer_2 TEXT,
+  wrong_answer_3 TEXT,
+  wrong_answer_4 TEXT
 
-create_likes_table = """
-CREATE TABLE IF NOT EXISTS likes (
-  id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  user_id INTEGER NOT NULL, 
-  post_id integer NOT NULL, 
-  FOREIGN KEY (user_id) REFERENCES users (id) FOREIGN KEY (post_id) REFERENCES posts (id)
 );
 """
+execute_query(connection, create_questions_table)  
 
-execute_query(connection, create_comments_table)  
-execute_query(connection, create_likes_table)   
+
